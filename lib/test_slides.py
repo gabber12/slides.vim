@@ -88,9 +88,9 @@ class TestBasePresentor(unittest.TestCase):
         thing.getText = MagicMock(return_value="dsa\n\n\nds")
         s = Slides(thing, SlidesConvertor(Markdown(renderer=VimRenderer(8))), SlidePresenter())
         s.start()
-        import os
-        self.assertTrue(os.path.isfile('/tmp/rand0'))
-        self.assertTrue(os.path.isfile('/tmp/rand1'))
+        import os, tempfile
+        self.assertTrue(os.path.isfile(os.path.join(tempfile.gettempdir(), '0.md')))
+        self.assertTrue(os.path.isfile(os.path.join(tempfile.gettempdir(), '1.md')))
 
 
 if __name__ == '__main__':
