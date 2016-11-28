@@ -1,6 +1,7 @@
 import mistune
 import pyfiglet
 from subprocess import call
+import tempfile
 
 
 class SlidesConvertor(object):
@@ -57,7 +58,7 @@ class VimPresenter(SlidePresenter):
 
     def present(self, slides):
         super(VimPresenter, self).present(slides)
-        call(['vim']+['/tmp/rand'+str(num) for num in xrange(len(slides))])
+        call(['vim']+[os.path.join(tempfile.gettempdir(), str(num)+".md") for num in xrange(len(slides))])
 
 
 class FileReader(object):
