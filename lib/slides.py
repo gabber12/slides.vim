@@ -1,6 +1,7 @@
 import mistune
 import pyfiglet
 
+
 class SlidesConvertor(object):
 
     def __init__(self, renderer):
@@ -11,7 +12,8 @@ class SlidesConvertor(object):
 
 
 class VimRenderer(mistune.Renderer):
-    def __init__(self, padding = 0):
+
+    def __init__(self, padding=0):
         super(VimRenderer, self).__init__()
         self.padding = padding
 
@@ -20,9 +22,9 @@ class VimRenderer(mistune.Renderer):
 
     def header(self, text, level, raw):
         if level == 1:
-            text  = pyfiglet.Figlet(font='block').renderText(text)
+            text = pyfiglet.Figlet(font='block').renderText(text)
         if level == 2:
-            text  = pyfiglet.Figlet().renderText(text)
+            text = pyfiglet.Figlet().renderText(text)
         return text
 
     def list(self, body, ordered):
@@ -34,15 +36,20 @@ class VimRenderer(mistune.Renderer):
     def paragraph(self, body):
         return body
 
+
 class SlidePresenter(object):
+
     def __init__(self):
         pass
+
     def present(self, slides):
         i = 0
         for slide in slides:
             with open('/tmp/rand'+str(i), 'w') as f:
                 f.write(slide)
-                i+=1
+                i += 1
+
+
 class VimPresenter(SlidePresenter):
     def __init__(self):
         super(VimPresenter, self).__init__()
@@ -52,6 +59,7 @@ class VimPresenter(SlidePresenter):
         from subprocess import call
         call(['vim']+['/tmp/rand'+str(num) for num in xrange(len(slides))])
 
+
 class FileReader(object):
     def __init__(self, filename):
         self.filename = filename
@@ -59,6 +67,7 @@ class FileReader(object):
     def getText(self):
         with open(self.filename, 'r') as f:
             return f.read()
+
 
 class Slides(object):
 
@@ -83,5 +92,7 @@ class Slides(object):
 
 if __name__ == '__main__':
     import sys
-    c = Slides(FileReader(sys.argv[1]), SlidesConvertor(mistune.Markdown(renderer=VimRenderer())), VimPresenter())
+    convertor = mistune.Markdown(renderer=VimRenderer())
+    c = Slides(FileReader(sys.argv[1]), SlidesConvertor(convertor),
+               VimPresenter())
     c.start()
