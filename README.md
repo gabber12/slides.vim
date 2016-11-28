@@ -44,7 +44,7 @@ Your first paragraph
 ```
 ---------------------
 
-Made by [gabber12](http://github.com/gabber12): [tybenz.com](http://gabber12.me) 
+Made by [gabber12](http://github.com/gabber12): [gabber12.me](http://gabber12.me) 
 
 
 
