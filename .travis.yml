@@ -1,5 +1,7 @@
 language: python
 install:
   - pip install -r requirements.txt
+  - pip install coveralls
 # command to run tests
-script: cd lib/; python -m unittest discover
+script: coverage run lib/test_slides.py 
+after_success: coveralls
