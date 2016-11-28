@@ -2,7 +2,7 @@ import mistune
 import pyfiglet
 from subprocess import call
 import tempfile
-
+import os
 
 class SlidesConvertor(object):
 
@@ -47,7 +47,7 @@ class SlidePresenter(object):
     def present(self, slides):
         i = 0
         for slide in slides:
-            with open('/tmp/rand'+str(i), 'w') as f:
+            with open(os.path.join(tempfile.gettempdir(), str(i)+".md"), 'w') as f:
                 f.write(slide)
                 i += 1
 
