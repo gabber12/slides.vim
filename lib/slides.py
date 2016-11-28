@@ -43,8 +43,22 @@ class SlidePresenter(object):
             with open('/tmp/rand'+str(i), 'w') as f:
                 f.write(slide)
                 i+=1
+class VimPresenter(SlidePresenter):
+    def __init__(self):
+        super(VimPresenter, self).__init__()
 
+    def present(self, slides):
+        super(VimPresenter, self).present(slides)
+        from subprocess import call
+        call(['vim']+['/tmp/rand'+str(num) for num in xrange(len(slides))])
 
+class FileReader(object):
+    def __init__(self, filename):
+        self.filename = filename
+
+    def getText(self):
+        with open(self.filename, 'r') as f:
+            return f.read()
 
 class Slides(object):
 
@@ -68,6 +82,6 @@ class Slides(object):
 
 
 if __name__ == '__main__':
-
-    c = Slides()
-    c.generate()
+    import sys
+    c = Slides(FileReader(sys.argv[1]), SlidesConvertor(mistune.Markdown(renderer=VimRenderer())), VimPresenter())
+    c.start()
