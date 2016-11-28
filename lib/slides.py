@@ -1,5 +1,6 @@
 import mistune
 import pyfiglet
+from subprocess import call
 
 
 class SlidesConvertor(object):
@@ -56,7 +57,6 @@ class VimPresenter(SlidePresenter):
 
     def present(self, slides):
         super(VimPresenter, self).present(slides)
-        from subprocess import call
         call(['vim']+['/tmp/rand'+str(num) for num in xrange(len(slides))])
 
 
@@ -92,7 +92,17 @@ class Slides(object):
 
 if __name__ == '__main__':
     import sys
+    import argparse
+    parser = argparse.ArgumentParser(
+        description='Do Presentation right from vim')
+    parser.add_argument(
+        'file',  type=str,
+        help='The presentation markdown file')
+    parser.add_argument(
+        '--pretend', default=False, type=bool,
+        help='If mentioned dumps the transformed output')
+    args = parser.parse_args()
     convertor = mistune.Markdown(renderer=VimRenderer())
-    c = Slides(FileReader(sys.argv[1]), SlidesConvertor(convertor),
+    c = Slides(FileReader(args.file), SlidesConvertor(convertor),
                VimPresenter())
     c.start()

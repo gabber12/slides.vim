@@ -3,3 +3,5 @@
 /**/*.pyc
 /dist/
 /**/*.gz
+.coverage
+/slides.vim.egg-info/
