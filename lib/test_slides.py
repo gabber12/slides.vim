@@ -1,5 +1,5 @@
 import unittest
-from slides import Slides, VimRenderer, SlidesConvertor
+from slides import Slides, VimRenderer, SlidesConvertor, SlidePresenter
 from mock import MagicMock
 from mistune import Markdown
 
@@ -80,6 +80,15 @@ class TestPadding(unittest.TestCase):
         thing.getText = MagicMock(return_value="dsa")
         s = Slides(thing, SlidesConvertor(Markdown(renderer=VimRenderer(7))), None)
         self.assertEqual([" "*14+"dsa" ], s.genrate())
+class TestBasePresentor(unittest.TestCase):
+    def test_files_exists(self):
+        thing = MockReader()
+        thing.getText = MagicMock(return_value="dsa\n\n\nds")
+        s = Slides(thing, SlidesConvertor(Markdown(renderer=VimRenderer(8))), SlidePresenter())
+        s.start()
+        import os
+        self.assertTrue(os.path.isfile('/tmp/rand0'))
+        self.assertTrue(os.path.isfile('/tmp/rand1'))
 
 
 if __name__ == '__main__':

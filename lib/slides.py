@@ -34,6 +34,17 @@ class VimRenderer(mistune.Renderer):
     def paragraph(self, body):
         return body
 
+class SlidePresenter(object):
+    def __init__(self):
+        pass
+    def present(self, slides):
+        i = 0
+        for slide in slides:
+            with open('/tmp/rand'+str(i), 'w') as f:
+                f.write(slide)
+                i+=1
+
+
 
 class Slides(object):
 
@@ -53,7 +64,7 @@ class Slides(object):
         return parsed_slides_text
 
     def start(self):
-        self.resenter.present()
+        self.presenter.present(self.genrate())
 
 
 if __name__ == '__main__':
