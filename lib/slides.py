@@ -10,7 +10,11 @@ class SlidesConvertor(object):
         self.renderer = renderer
 
     def output(self, text):
-        return self.renderer.output(text)
+        out = self.renderer.output(text)
+        import re
+        out = re.sub(r"\n\t(\S)", r"\n\1", out)
+        out = out.replace("\t\t", "\t")
+        return out
 
 
 class VimRenderer(mistune.Renderer):
@@ -30,10 +34,11 @@ class VimRenderer(mistune.Renderer):
         return text
 
     def list(self, body, ordered):
-        return body
+        body = body.replace('\t', '\t\t')
+        return "\n\t"+body
 
     def list_item(self, body):
-        return body
+        return "- "+body.rstrip("\n")+"\n"
 
     def paragraph(self, body):
         return body
@@ -84,7 +89,8 @@ class Slides(object):
         slidesText = self._preprocess(self.reader.getText())
         parsed_slides_text = []
         for each in slidesText:
-            parsed_slides_text.append(self.renderer.output(each))
+            out = self.renderer.output(each)
+            parsed_slides_text.append(out)
         return parsed_slides_text
 
     def start(self):
