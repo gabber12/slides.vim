@@ -44,28 +44,28 @@ class TestListMethods(unittest.TestCase):
         thing.getText = MagicMock(return_value="1. dsadsa")
         markdown = Markdown(renderer=VimRenderer())
         s = Slides(thing, SlidesConvertor(markdown), None)
-        self.assertEqual(["\ndsadsa\n"], s.genrate())
+        self.assertEqual(["\n- dsadsa\n"], s.genrate())
 
     def test_ul_generation(self):
         thing = MockReader()
         thing.getText = MagicMock(return_value="* dsadsa\n* abc")
         markdown = Markdown(renderer=VimRenderer())
         s = Slides(thing, SlidesConvertor(markdown), None)
-        self.assertEqual(["\ndsadsa\nabc\n"], s.genrate())
+        self.assertEqual(["\n- dsadsa\n- abc\n"], s.genrate())
 
     def test_nestedul_generation(self):
         thing = MockReader()
         thing.getText = MagicMock(return_value="* dsadsa\n    * dsa")
         markdown = Markdown(renderer=VimRenderer())
         s = Slides(thing, SlidesConvertor(markdown), None)
-        self.assertEqual(["\ndsadsa\n\tdsa\n"], s.genrate())
+        self.assertEqual(["\n- dsadsa\n\t- dsa\n"], s.genrate())
 
     def test_nested3ul_generation(self):
         thing = MockReader()
         thing.getText = MagicMock(return_value="* dsadsa\n    * dsa\n        * jkl")
         markdown = Markdown(renderer=VimRenderer())
         s = Slides(thing, SlidesConvertor(markdown), None)
-        self.assertEqual(["\ndsadsa\n\tdsa\n\t\tjkl\n"], s.genrate())
+        self.assertEqual(["\n- dsadsa\n\t- dsa\n\t\t- jkl\n"], s.genrate())
 
 class TestSlidesMethods(unittest.TestCase):
 

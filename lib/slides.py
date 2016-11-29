@@ -38,7 +38,7 @@ class VimRenderer(mistune.Renderer):
         return "\n\t"+body
 
     def list_item(self, body):
-        return ""+body.rstrip("\n")+"\n"
+        return "- "+body.rstrip("\n")+"\n"
 
     def paragraph(self, body):
         return body
