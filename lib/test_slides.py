@@ -16,35 +16,34 @@ class MockWriter(object):
 
 class TestHeaderMethods(unittest.TestCase):
 
+
     def test_h3_generation(self):
         thing = MockReader()
-        thing.getText = MagicMock(return_value="### dsadsa")
-        markdown = Markdown(renderer=VimRenderer())
-        s = Slides(thing, SlidesConvertor(markdown), None)
-        self.assertEqual(["dsadsa"], s.genrate())
+        thing.getText = MagicMock(return_value="### dsadsa\n")
+        s = Slides(thing, SlidesConvertor(Markdown(renderer=VimRenderer())), None)
+        self.assertEqual(['dsadsa\n------\n'], s.genrate())
 
     def test_h2_generation(self):
         thing = MockReader()
-        thing.getText = MagicMock(return_value="dsadsa\n---")
+        thing.getText = MagicMock(return_value="## dsadsa\n")
         s = Slides(thing, SlidesConvertor(Markdown(renderer=VimRenderer())), None)
-        self.assertEqual(['     _               _           \n  __| |___  __ _  __| |___  __ _ \n / _` / __|/ _` |/ _` / __|/ _` |\n| (_| \\__ \\ (_| | (_| \\__ \\ (_| |\n \\__,_|___/\\__,_|\\__,_|___/\\__,_|\n                                 \n'], s.genrate())
-
-    def test_h1_generation(self):
-        thing = MockReader()
-        thing.getText = MagicMock(return_value="dsadsa\n===")
-        markdown = Markdown(renderer=VimRenderer())
-        s = Slides(thing, SlidesConvertor(markdown), None)
-        self.assertEqual(["                                                            \n      _|                            _|                      \n  _|_|_|    _|_|_|    _|_|_|    _|_|_|    _|_|_|    _|_|_|  \n_|    _|  _|_|      _|    _|  _|    _|  _|_|      _|    _|  \n_|    _|      _|_|  _|    _|  _|    _|      _|_|  _|    _|  \n  _|_|_|  _|_|_|      _|_|_|    _|_|_|  _|_|_|      _|_|_|  \n                                                            \n                                                            \n"], s.genrate())
+        self.assertEqual(['dsadsa\n======\n'], s.genrate())
 
 
 class TestListMethods(unittest.TestCase):
+    def test_ul_ol_generation(self):
+        thing = MockReader()
+        thing.getText = MagicMock(return_value="1. dsadsa\n    * fgh\n    2. dsa")
+        markdown = Markdown(renderer=VimRenderer())
+        s = Slides(thing, SlidesConvertor(markdown), None)
+        self.assertEqual(["\n- dsadsa\n\t- fgh\n- dsa\n"], s.genrate())
 
     def test_ol_generation(self):
         thing = MockReader()
-        thing.getText = MagicMock(return_value="1. dsadsa")
+        thing.getText = MagicMock(return_value="1. dsadsa\n2. dsa")
         markdown = Markdown(renderer=VimRenderer())
         s = Slides(thing, SlidesConvertor(markdown), None)
-        self.assertEqual(["\n- dsadsa\n"], s.genrate())
+        self.assertEqual(["\n- dsadsa\n- dsa\n"], s.genrate())
 
     def test_ul_generation(self):
         thing = MockReader()

@@ -28,9 +28,11 @@ class VimRenderer(mistune.Renderer):
 
     def header(self, text, level, raw):
         if level == 1:
-            text = pyfiglet.Figlet(font='block').renderText(text)
-        if level == 2:
             text = pyfiglet.Figlet().renderText(text)
+        elif level == 2:
+            text = text+"\n"+"="*len(text)+"\n"
+        else:
+            text = text+"\n"+"-"*len(text)+"\n"
         return text
 
     def list(self, body, ordered):
