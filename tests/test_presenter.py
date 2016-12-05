@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../src")
 import unittest
 from slides import Slides, VimRenderer, SlidesConvertor, VimRCGenerator
 from presenter import SlidePresenter, VimPresenter
@@ -24,7 +27,7 @@ class TestVimPresentor(unittest.TestCase):
         self.assertIn('-u', s.vim_args)
         self.assertIn("/tmp/rand.rc", s.vim_args)
 
-    def test_arguments_has_rc_file(self):
+    def test_RC_gets_added(self):
         thing = VimPresenter(VimRCGenerator())
         thing.withRC = MagicMock()
         thing._get_command(2)

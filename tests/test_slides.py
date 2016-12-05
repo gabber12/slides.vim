@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../src")
 import unittest
 from slides import Slides, VimRenderer, SlidesConvertor
 from presenter import SlidePresenter
@@ -85,3 +88,7 @@ class TestPadding(unittest.TestCase):
         markdown = Markdown(renderer=VimRenderer(2))
         s = Slides(thing, SlidesConvertor(markdown), None)
         self.assertEqual([" "*4+"dsa" ], s.genrate())
+
+
+if __name__ == '__main__':
+    unittest.main()
