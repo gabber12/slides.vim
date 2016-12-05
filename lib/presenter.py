@@ -28,7 +28,7 @@ class VimPresenter(SlidePresenter):
 
     def _get_command(self, num_slides):
         self.withRC()
-        return ['vim'] + self.vim_args + [os.path.join(tempfile.gettempdir(), str(num)+".md") for num in xrange(num_slides)]
+        return ['vim'] + self.vim_args + [os.path.join(tempfile.gettempdir(), str(num)+".md") for num in range(num_slides)]
 
     def present(self, slides):
         super(VimPresenter, self).present(slides)
