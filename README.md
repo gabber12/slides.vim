@@ -2,9 +2,6 @@
 
 Code Presentations in vim
 
-You can install slides.vim by 
-
-
 
 ## Installation
 
@@ -42,9 +39,10 @@ Example:
 
 Your first paragraph
 ```
+
+## Roadmap
+I am trying to actively add features, do check back if you are interested.
+If you have any feature request do raise an issue, and i'll get back to it.
 ---------------------
 
-Made by [gabber12](http://github.com/gabber12): [gabber12.me](http://gabber12.me) 
-
-
-
+Made by [gabber12](http://github.com/gabber12): [gabber12.me](http://gabber12.me)

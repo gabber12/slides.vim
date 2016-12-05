@@ -1,7 +1,9 @@
 /venv/
 /**/*.swp
+/**/*.swo
 /**/*.pyc
 /dist/
 /**/*.gz
 .coverage
 /slides.vim.egg-info/
+/**/.ropeproject
