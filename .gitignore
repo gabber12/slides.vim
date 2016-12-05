@@ -6,3 +6,4 @@
 /**/*.gz
 .coverage
 /slides.vim.egg-info/
+/**/.ropeproject

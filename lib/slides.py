@@ -1,9 +1,7 @@
 import mistune
 import pyfiglet
-import tempfile
-import os
-from subprocess import call
-from presenter import VimPresenter
+from presenter import VimPresenter, VimRCGenerator
+
 
 class SlidesConvertor(object):
 
@@ -46,6 +44,7 @@ class VimRenderer(mistune.Renderer):
     def paragraph(self, body):
         return body
 
+
 class FileReader(object):
     def __init__(self, filename):
         self.filename = filename
@@ -78,7 +77,6 @@ class Slides(object):
 
 
 if __name__ == '__main__':
-    import sys
     import argparse
     parser = argparse.ArgumentParser(
         description='Do Presentation right from vim')
@@ -91,5 +89,5 @@ if __name__ == '__main__':
     args = parser.parse_args()
     convertor = mistune.Markdown(renderer=VimRenderer())
     c = Slides(FileReader(args.file), SlidesConvertor(convertor),
-               VimPresenter())
+               VimPresenter(VimRCGenerator()))
     c.start()
